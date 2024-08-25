@@ -4,10 +4,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #fff;
+}
+
 body {
     font-family: 'New Amsterdam', sans-serif;
     background-color: #000;
-    color: #fff;
+    color: var(--primary-color);
+    letter-spacing: 1px;
 }
 
 .container {
@@ -17,23 +22,32 @@ body {
 .heading {
     text-transform: uppercase;
     margin-bottom: 1rem;
-    letter-spacing: 1px;
 }
 
-button {
+.btn {
     padding: 1rem;
     width: 100px;
     height: 100px;
     background-color: transparent;
-    color: #fff;
-    border: 2px solid #fff;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     border-radius: 50%;
     font-size: 0.7rem;
     cursor: pointer;
 }
 
-.result {
-    color: #fff;
+.result, 
+.score {
     font-size: 1rem;
-    padding: 2rem;
+    margin-inline: 2rem;
+}
+
+.reset {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-top: 1rem;
+    margin-inline: 2rem;
+    cursor: pointer;
 }

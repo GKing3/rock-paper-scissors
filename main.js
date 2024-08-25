@@ -3,6 +3,11 @@ const paperButton = document.querySelector('#paper-button');
 const scissorsButton = document.querySelector('#scissors-button');
 
 const resultDiv = document.querySelector('.result');
+const scoreDiv = document.querySelector('.score');
+
+const resetButton = document.querySelector('.reset');
+
+const score = JSON.parse(localStorage.getItem('score')) || {wins: 0, losses: 0, ties: 0};
 
 const getComputerMove = () => {
     const randomNumber = Math.random();
@@ -16,24 +21,40 @@ const getComputerMove = () => {
     }
 }
 
-const playGame = (userMove) => {
+const playGame = (playerMove) => {
     let computerMove = getComputerMove();
     let result = '';
 
-    if(userMove === computerMove) {
+    if(playerMove === computerMove) {
         result = `It's a Tie!`;
     } else if(
-        (userMove === 'rock' && computerMove === 'scissors') || 
-        (userMove === 'paper' && computerMove === 'rock') || 
-        (userMove === 'scissors' && computerMove === 'paper')) {
-            result = `You win.`
+        (playerMove === 'rock' && computerMove === 'scissors') || 
+        (playerMove === 'paper' && computerMove === 'rock') || 
+        (playerMove === 'scissors' && computerMove === 'paper')) {
+            result = `You win.`;
     } else {
-        result = 'You lose.'
+        result = `You lose.`;
     }
 
-    resultDiv.innerHTML = `You picked ${userMove}. Computer picked ${computerMove}. ${result}`;
+    if(result === `You win.`) {
+        score.wins += 1;
+    } else if(result === `You lose.`) {
+        score.losses += 1;
+    } else if(result === `It's a Tie!`) {
+        score.ties += 1;
+    }
+
+    localStorage.setItem('score', JSON.stringify(score));
+
+    resultDiv.innerHTML = `You picked ${playerMove}. Computer picked ${computerMove}. ${result}`;
+
+    scoreDiv.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`;
 }
 
 rockButton.addEventListener('click', () => playGame('rock'));
 paperButton.addEventListener('click', () => playGame('paper'));
 scissorsButton.addEventListener('click', () => playGame('scissors'));
+
+resetButton.addEventListener('click', () => {
+    localStorage.removeItem('score');
+})

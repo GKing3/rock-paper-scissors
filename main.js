@@ -56,5 +56,12 @@ paperButton.addEventListener('click', () => playGame('paper'));
 scissorsButton.addEventListener('click', () => playGame('scissors'));
 
 resetButton.addEventListener('click', () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
     localStorage.removeItem('score');
+
+    resultDiv.innerHTML = 'Start over';
+
+    scoreDiv.innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`;
 })
